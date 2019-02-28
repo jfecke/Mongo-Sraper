@@ -27,6 +27,11 @@ mongoose.connect("mongodb://localhost/mongoscraper", { useNewUrlParser: true });
 
 // Routes
 
+app.get("/", function(){
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+
 // A GET route for scraping Google News
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
