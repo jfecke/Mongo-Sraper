@@ -37,9 +37,9 @@ app.set("view engine", "handlebars");
 
 // Routes
 
-app.get("/", function(){
+app.get("/", function(req, res){
   //res.sendFile(path.join(__dirname, "../public/index.html"));
-  res.render("main")
+  res.render("index")
 });
 
 // A GET route for scraping Google News
