@@ -41,7 +41,7 @@ app.get("/scrape", function(req, res) {
       var $ = cheerio.load(response.data);
       $(".css-ye6x8s").each(function(i, element) {
         var title = $(element).find("h2").text();
-        var link = "https://www.nytimes.com/" +  $(element).find("a").attr("href");
+        var link = "https://www.nytimes.com" +  $(element).find("a").attr("href");
         var summary = $(element).find("p").text();
         db.Article.create({title: title, summary:summary, link: link}, function(error, found) {
           if (error) throw error
@@ -100,6 +100,18 @@ app.post("/articles/:id", function(req, res) {
       res.json(err);
     });
 });
+
+app.get("/deleteAll", function(req, res) {
+  db.Article.remove({})
+    .then(function(dbResponse) {
+      res.send("Remove All Complete");
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+})
+
 
 // Start the server
 app.listen(PORT, function() {
