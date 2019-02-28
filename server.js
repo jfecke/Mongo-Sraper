@@ -25,13 +25,21 @@ app.use(express.static("public"));
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI);
 
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+
+
 // Connect to the Mongo DB
 //mongoose.connect("mongodb://localhost/mongoscraper", { useNewUrlParser: true });
 
 // Routes
 
 app.get("/", function(){
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  //res.sendFile(path.join(__dirname, "../public/index.html"));
+  res.render("main")
 });
 
 // A GET route for scraping Google News
