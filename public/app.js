@@ -1,11 +1,16 @@
 // Grab the articles as a json
 $.getJSON("/articles", function(data) {
   // For each one
-  for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'>"+ "<strong>" + data[i].title + "</strong>" +
-    "<br />" + "<strong>Summary: </strong>"+ data[i].summary + "<br />" + "<a href='"+ data[i].link + "'>" + data[i].link+  "<target='_blank' /a>" + "</p>");
-  }
+  $.ajax({
+    method: "GET",
+    url: "/scrape"
+  }).then(function(data2){
+    for (var i = data.length-1; i > 0; i--) {
+      // Display the apropos information on the page
+      $("#articles").append("<p data-id='" + data[i]._id + "'>"+ "<strong>" + data[i].title + "</strong>" +
+      "<br />" + "<strong>Summary: </strong>"+ data[i].summary + "<br />" + "<a href='"+ data[i].link + "'>" + data[i].link+  "<target='_blank' /a>" + "</p>");
+    }
+  })
 });
 
 
